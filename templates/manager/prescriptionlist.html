@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated and user.user.rank == 'manager' %}
+  <div class="table-responsive">
+
+    <table class="table table-bordered table-striped ">
+      <thead id="theadthid">
+        <tr>
+          <th scope="col">Prescription Vet Id</th>
+          <th scope="col">Prescription Disease Name</th>
+          <th scope="col">Prescription Description</th>
+
+        </tr>
+      </thead>
+
+      <tbody id="tbodydata">
+        {% for pre in pres %}
+        <tr>      
+          <td> <a style="text-decoration:none;"class="btn btn-link text-info"><strong>{{ pre.prescription_vet_visist_id}}</strong></a></td>
+          <td>{{ pre.prescription_disease_name}}</td>
+          <td>{{ pre.prescription_description}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      </div>
+    </table>
+
+  </div>
+  {% endif %}
+
+
+{% endblock %}

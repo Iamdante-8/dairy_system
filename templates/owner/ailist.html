@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated and user.user.rank == 'farm_owner' %}
+  <div class="table-responsive">
+
+    <table class="table table-bordered table-striped ">
+      <thead id="theadthid">
+        <tr>
+          <th scope="col">AI Vet Id</th>
+          <th scope="col">AI Date</th>
+          <th scope="col"> AI Comments</th>
+
+        </tr>
+      </thead>
+
+      <tbody id="tbodydata">
+        {% for service in services %}
+        <tr>      
+          <td> <a style="text-decoration:none;"class="btn btn-link text-info"><strong>{{ service.AI_vet_id}}</strong></a></td>
+          <td>{{ service.AI_date }}</td>
+          <td>{{ service.AI_comments }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      </div>
+    </table>
+
+  </div>
+  {% endif %}
+
+
+{% endblock %}

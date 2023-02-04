@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="table-responsive">
+
+    <table class="table table-bordered table-striped ">
+      <thead id="theadthid">
+        <tr>
+          <th scope="col">Production Animal_id</th>
+          <th scope="col">Production Id</th>
+          <th scope="col">Production Morning_quantity</th>
+          <th scope="col">Production Mid-morning_quantity</th>
+          <th scope="col">Production Evening_quantity</th>
+          <th scope="col">Production Total_quantity(litres (per animal)</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+
+        </tr>
+      </thead>
+
+      <tbody id="tbodydata">
+        {% for prod in prods%}
+        <tr>      
+          <td> <a style="text-decoration:none;"href="{% url 'production-graph' %}" class="btn btn-link text-info"><strong>{{ prod.production_animal_id}}</strong></a></td>
+          <td>{{ prod.production_id}}</td>
+          <td>{{ prod.production_morning_quantity}}</td>
+          <td>{{ prod.production_mid_morning_quantity}}</td>
+          <td>{{ prod.production_evening_quantity}}</td>
+          <td>{{ prod.production_total_quantity}}</td>
+          <td><a style="text-decoration:none;"href="{% url 'update-production' prod.production_id %}">Edit</a></td>
+          <td>
+            <form action="{% url 'delete-production' prod.production_id %}" method="POST">
+              {% csrf_token %}
+              <input type="submit" style="background-color:red;" value="DELETE">
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <div class="container test-submit-last">
+        <form>
+                <div class="col">
+                    <a class="btn btn-primary" href="{% url 'report_production'%}" target="_blank" role="button">Print PDF</a>
+                    <a class="btn btn-secondary"  style="background-color: green;text-align:right;"href="{% url 'add-production' %}">Add Production</a>
+                </div>
+            </div>
+        </form>
+      </div>
+    </table>
+
+  </div>
+
+
+{% endblock %}

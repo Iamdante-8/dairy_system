@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="table-responsive">
+
+    <table class="table table-bordered table-striped ">
+      <thead id="theadthid">
+        <tr>
+          <th scope="col">Vet Name</th>
+          <th scope="col">Vet Phone Number</th>
+          <th scope="col">Vet Email</th>
+          <th scope="col">Vet username</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+
+        </tr>
+      </thead>
+
+      <tbody id="tbodydata">
+        {% for vet in vets %}
+        <tr>      
+          <td> <a style="text-decoration:none;" class="btn btn-link text-info"><strong>{{ vet.vet_name}}</strong></a></td>
+          <td>{{ vet.vet_phone_number }}</td>
+          <td>{{ vet.vet_email}}</td>
+          <td>{{ vet.vet_user_id}}</td>
+          <td><a style="text-decoration:none;"href="{% url 'update-vet' vet.vet_id %}">Edit</a></td>
+          <td>
+            <form action="{% url 'delete-vet' vet.vet_id %}" method="POST">
+              {% csrf_token %}
+              <input type="submit" style="background-color:red;" value="DELETE">
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <div class="container test-submit-last">
+        <form>
+          <div class="col">
+              <a class="btn btn-primary" href="{% url 'report_vet'%}" target="_blank" role="button">Print PDF</a>
+              <a class="btn btn-secondary"  style="background-color: green;text-align:right;"href="{% url 'add-vet' %}">Add Vet</a>
+          </div>
+      </div>
+        </form>
+      </div>
+    </table>
+
+  </div>
+
+
+{% endblock %}

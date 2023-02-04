@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="table-responsive">
+
+    <table class="table table-bordered table-striped ">
+      <thead id="theadthid">
+        <tr>
+          <th scope="col">Animal ref</th>
+          <th scope="col">Animal Name</th>
+          <th scope="col">Animal Type_id</th>
+          <th scope="col">Animal Status</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+         
+         
+
+        </tr>
+      </thead>
+
+      <tbody id="tbodydata">
+        {% for animal in animals%}
+        <tr>      
+          <td> <a style="text-decoration:none;"class="btn btn-link text-info"><strong>{{ animal.animal_ref}}</strong></a></td>
+          <td>{{ animal.animal_name}}</td>
+          <td>{{ animal.animal_type_id}}</td>
+          <td>{{ animal.animal_status}}</td>
+          <td><a style="text-decoration:none;"href="{% url 'update-animal' animal.animal_id %}">Edit</a></td>
+          <td>
+            <form action="{% url 'delete-animal' animal.animal_id %}" method="POST">
+              {% csrf_token %}
+              <input type="submit" style="background-color:red;" value="Delete">
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <div class="container test-submit-last">
+        <form>
+                <div class="col">
+                    <a class="btn btn-primary" href="{% url 'reports'%}" target="_blank" role="button">Print PDF</a>
+                    <a class="btn btn-secondary"  style="background-color: green;text-align:right;"href="{% url 'add-animal' %}">Add Animal</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    </table>
+
+  </div>
+
+
+{% endblock %}

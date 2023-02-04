@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="table-responsive">
+
+    <table class="table table-bordered table-striped ">
+      <thead id="theadthid">
+        <tr>
+          <th scope="col">Supplement Name</th>
+          <th scope="col">Supplement Id</th>
+          <th scope="col">Suppliment Production Id</th>
+          <th scope="col"> Supplement Production before</th>
+          <th scope="col"> Supplement Production after</th>
+          <th scope="col">Supplement Production Added</th>
+          <th scope="col">Supplement Date</th>
+          <th scope="col">Supplement Description</th>
+          <th scope="col">Suppliment Animal_id</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          
+
+        </tr>
+      </thead>
+
+      <tbody id="tbodydata">
+        {% for supp in supps%}
+        <tr>      
+          <td> <a style="text-decoration:none;"href="{% url 'supplement-graph' %}" class="btn btn-link text-info"><strong>{{ supp.suppliment_name}}</strong></a></td>
+          <td>{{ supp.suppliment_id}}</td>
+          <td>{{ supp.suppliment_production_id}}</td>
+          <td>{{ supp.suppliment_production_before}}</td>
+          <td>{{ supp.suppliment_production_after}}</td>
+          <td>{{ supp.suppliment_production_added}}</td>
+          <td>{{ supp.suppliment_date}}</td>
+          <td>{{ supp.suppliment_desc}}</td>
+          <td>{{ supp.suppliment_animal_id}}</td>
+          <td><a style="text-decoration:none;"href="{% url 'update-supplement' supp.suppliment_id %}">Edit</a></td>
+          <td>
+            <form action="{% url 'delete-supplement' supp.suppliment_id %}" method="POST">
+              {% csrf_token %}
+              <input type="submit" style="background-color:red;" value="Delete">
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <div class="container test-submit-last">
+        <form>
+          <div class="col">
+              <a class="btn btn-primary" href="{% url 'report_supplement'%}" target="_blank" role="button">Print PDF</a>
+              <a class="btn btn-secondary"  style="background-color: green;text-align:right;"href="{% url 'add-supplement' %}">Add Supplement</a>
+          </div>
+        </div>
+        </form>
+      </div>
+    </table>
+
+  </div>
+
+
+{% endblock %}

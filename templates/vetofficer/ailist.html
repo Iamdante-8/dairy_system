@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated and user.user.rank == 'farm_vertinary_officer' %}
+  <div class="table-responsive">
+
+    <table class="table table-bordered table-striped ">
+      <thead id="theadthid">
+        <tr>
+          <th scope="col">AI Vet Id</th>
+          <th scope="col">AI Date</th>
+          <th scope="col"> AI Comments</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+
+        </tr>
+      </thead>
+
+      <tbody id="tbodydata">
+        {% for service in services %}
+        <tr>      
+          <td> <a style="text-decoration:none;"class="btn btn-link text-info"><strong>{{ service.AI_vet_id}}</strong></a></td>
+          <td>{{ service.AI_date }}</td>
+          <td>{{ service.AI_comments }}</td>
+          <td><a style="text-decoration:none;"href="{% url 'update-ai' service.AI_service_id %}">Edit</a></td>
+          <td>
+            <form action="{% url 'delete-ai' service.AI_service_id %}" method="POST">
+              {% csrf_token %}
+              <input type="submit" style="background-color:red;" value="DELETE">
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <div class="container test-submit-last">
+        <form>
+          <div class="col">
+              <a class="btn btn-primary" href="{% url 'report_ai'%}" target="_blank" role="button">Print PDF</a>
+              <a class="btn btn-secondary"  style="background-color: green;text-align:right;"href="{% url 'add-ai' %}">Add AI</a>
+          </div>
+      </div>
+        </form>
+      </div>
+    </table>
+
+  </div>
+  {% endif %}
+
+
+{% endblock %}

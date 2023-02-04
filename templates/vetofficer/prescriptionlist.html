@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="table-responsive">
+
+    <table class="table table-bordered table-striped ">
+      <thead id="theadthid">
+        <tr>
+          <th scope="col">Prescription Vet Id</th>
+          <th scope="col">Prescription Disease Name</th>
+          <th scope="col">Prescription Description</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+
+        </tr>
+      </thead>
+
+      <tbody id="tbodydata">
+        {% for pre in pres %}
+        <tr>      
+          <td> <a style="text-decoration:none;"class="btn btn-link text-info"><strong>{{ pre.prescription_vet_visist_id}}</strong></a></td>
+          <td>{{ pre.prescription_disease_name}}</td>
+          <td>{{ pre.prescription_description}}</td>
+          <td><a style="text-decoration:none;"href="{% url 'update-prescription' pre.prescription_id %}">Edit</a></td>
+          <td>
+            <form action="{% url 'delete-prescription' pre.prescription_id %}" method="post">
+              {% csrf_token %}
+              <input type="submit" style="background-color:red;" value="DELETE">
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <div class="container test-submit-last">
+        <form>
+          <div class="col">
+              <a class="btn btn-primary" href="{% url 'report_pre'%}" target="_blank" role="button">Print PDF</a>
+              <a class="btn btn-secondary"  style="background-color: green;text-align:right;"href="{% url 'add-prescription' %}">Add Prescription</a>
+          </div>
+      </div>
+        </form>
+      </div>
+    </table>
+
+  </div>
+
+
+{% endblock %}

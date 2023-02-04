@@ -1,0 +1,4 @@
+#ignore the following files
+*.pdf
+*.txt
+*db_backup

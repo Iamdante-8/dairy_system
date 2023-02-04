@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated and user.user.rank == 'farm_owner' %}
+  <div class="table-responsive">
+
+    <table class="table table-bordered table-striped ">
+      <thead id="theadthid">
+        <tr>
+          <th scope="col">manager Name</th>
+          <th scope="col">manager Id</th>
+          <th scope="col"> Manager username</th>
+          <th scope="col">Manager Phone Number</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          
+
+        </tr>
+       
+        
+      </thead>
+
+      <tbody id="tbodydata">
+        {% for manager in managers %}
+        <tr>      
+          <td> <a style="text-decoration:none;"class="btn btn-link text-info"><strong>{{ manager.manager_name}}</strong></a></td>
+          <td>{{ manager.manager_id }}</td>
+          <td>{{ manager.manager_user_id }}</td>
+          <td>{{ manager.manager_phone_number}}</td>
+          <td><a style="text-decoration:none;"href="{% url 'update-manager' manager.manager_id %}">Edit</a></td>
+          <th>
+            <form action="{% url 'delete-manager' manager.manager_id %}" method="POST">
+              {% csrf_token %}
+              <input type="submit" style="background-color:red;" value="Delete">
+            </form>
+          </th>
+          
+        </tr>
+        {% endfor %}
+      </tbody>
+      <div class="container test-submit-last">
+        <form>
+                <div class="col">
+                    <a class="btn btn-primary" href="{% url 'report_manager'%}" target="_blank" role="button">Print PDF</a>
+                    <a class="btn btn-secondary"  style="background-color: green;text-align:right;"href="{% url 'add-manager' %}">Add Manager</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    </table>
+
+  </div>
+  {% endif %}
+
+
+{% endblock %}
