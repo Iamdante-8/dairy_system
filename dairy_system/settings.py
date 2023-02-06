@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'animalApp.apps.AnimalappConfig',
     'crispy_forms',
+    'bootstrap4',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
