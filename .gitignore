@@ -2,3 +2,4 @@
 *.pdf
 *.txt
 *db_backup
+*__pycache__
